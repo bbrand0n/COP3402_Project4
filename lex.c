@@ -314,7 +314,28 @@ int symbolToken(char * input, int inputIndex)
 			strcpy(list[lex_index].name, curString);
 			list[lex_index++].type = divsym;
 			return ++inputIndex;
+
+		case '&':
+			// AND
+			if (nextChar == '&')
+			{
+				char tempString[] = {'&', '&', '\0'};
+        		strcpy(list[lex_index].name, tempString);
+				list[lex_index++].type = andsym;
+				return inputIndex + 2;
+			}
+
     
+		case '|':
+			// ORR
+			if (nextChar == '|')
+			{
+				char tempString[] = {'|', '|', '\0'};
+        		strcpy(list[lex_index].name, tempString);
+				list[lex_index++].type = orsym;
+				return inputIndex + 2;
+			}
+
 		// Invalid symbol
 		default:
 			return -1;
