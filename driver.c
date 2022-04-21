@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
 		}
 	}
 	
-	list = lexanalyzer(input, tokens);
+	list = lexanalyzer(input, 1);
 	if (list == NULL)
 	{
 		free(input);
