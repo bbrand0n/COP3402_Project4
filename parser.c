@@ -900,6 +900,7 @@ int findsymbol(char name[], int kind)
 	return max_idx;
 }
 
+// Print parser error
 void printparseerror(int err_code)
 {
 	switch (err_code)
