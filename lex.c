@@ -73,7 +73,7 @@ int alphaToken(char * input, int inputIndex)
 		list[lex_index].value = identsym;
 		strcpy(list[lex_index++].name, buffer);
 	}
-	
+
 	return ++curIndex;
 }
 
@@ -239,7 +239,6 @@ int symbolToken(char * input, int inputIndex)
 				return inputIndex + 2;
 			}
 			// Not valid
-			printf("Next char: %c\n", nextChar);
 			return -1;
 
 		case '=':
@@ -251,7 +250,6 @@ int symbolToken(char * input, int inputIndex)
 				return inputIndex + 2;
 			}
 			// Not valid
-			printf("Next char= %c\n", nextChar);
 			return -1;
 
 		case '!': 
@@ -263,6 +261,10 @@ int symbolToken(char * input, int inputIndex)
 				list[lex_index++].type = neqsym;
 				return inputIndex + 2;
 			}
+
+			strcpy(list[lex_index].name, curString);
+			list[lex_index++].type = notsym;
+			return ++inputIndex;
 
 		case '>':
 			// GEQ
@@ -324,6 +326,9 @@ int symbolToken(char * input, int inputIndex)
 				list[lex_index++].type = andsym;
 				return inputIndex + 2;
 			}
+			strcpy(list[lex_index].name, curString);
+			list[lex_index++].type = andsym;
+			return ++inputIndex;
 
     
 		case '|':
@@ -335,6 +340,9 @@ int symbolToken(char * input, int inputIndex)
 				list[lex_index++].type = orsym;
 				return inputIndex + 2;
 			}
+			strcpy(list[lex_index].name, curString);
+			list[lex_index++].type = andsym;
+			return ++inputIndex;
 
 		// Invalid symbol
 		default:
@@ -541,6 +549,15 @@ void printtokens()
 				break;
 			case numbersym:
 				printf("%11d\t%d", list[i].value, numbersym);
+				break;
+			case andsym:
+				printf("%11s\t%d", "&&", andsym);
+				break;
+			case orsym:
+				printf("%11s\t%d", "||", orsym);
+				break;
+			case notsym:
+				printf("%11s\t%d", "!", notsym);
 				break;
 		}
 		printf("\n");

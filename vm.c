@@ -31,6 +31,7 @@ void print_execution(int line, char *opname, instruction IR, int PC, int BP, int
 	for (i = 0; i <= SP; i++)
 		printf("%d ", data_stack[i]);
 	printf("\n");
+
 }
 
 
@@ -187,9 +188,9 @@ void execute_program(instruction *code, int printFlag)
 					}
 					// NOT (HW4)
 					if(IR.m == 14) {
-						//rs[RP+1] = 1 - rs[RP+1];  maybe try this if it doesnt work?
-						rs[RP+1] = !rs[RP+1];
-						RP++;
+						//rs[RP+1] = 1 - rs[RP+1];  //maybe try this if it doesnt work?
+						rs[RP] = !rs[RP];
+						//RP++;
 						opname = "NOT";
 					}	
 					 break;

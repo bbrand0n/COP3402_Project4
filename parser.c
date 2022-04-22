@@ -99,6 +99,7 @@ instruction *parse(lexeme *list, int printTable, int printCode)
 	// End of array
 	code[cIndex].opcode = -1;
 
+
 	// Return result
 	return code;
 }
@@ -373,7 +374,10 @@ void statement(lexeme *list) {
 		// Call LOGIC instead of condition (HW4)
 		logic(list);
 
+		tokenIndex++;
+		tokenIndex++;
 		// Check for then symbol
+		//printf(" If : %d\n",list[tokenIndex].type);
 		if(list[tokenIndex].type != thensym) printparseerror(8);
 
 		// Store current code index in JPC
@@ -421,7 +425,9 @@ void statement(lexeme *list) {
 		// Instead of condition we call logic (HW4)
 		logic(list);
 
+		tokenIndex++;
 
+		//printf(" While : %d\n", list[tokenIndex].type);
 		// Check for do while symbol
 		if(list[tokenIndex].type != dosym) printparseerror(9);
 
@@ -601,7 +607,9 @@ void condition(lexeme *list){
 		// Logic (HW4)
 		logic(list);
 
+		
 		// Must end with right parentheses
+		//printf("Condiiton BITCH: %d\n", list[tokenIndex].type);
 		if(list[tokenIndex].type != rparensym) printparseerror(12);
 	}
 	
@@ -764,6 +772,8 @@ void factor(lexeme *list) {
 		// Expression
 		expression(list);
 		// Must end with right parenthesis after (expression)
+		//printf("Condiiton L: %s\n", list[tokenIndex].name);
+		//tokenIndex++;
 		if(list[tokenIndex].type != rparensym) printparseerror(12);
 		// Increment token index
 		tokenIndex++;
@@ -777,6 +787,7 @@ void factor(lexeme *list) {
 // ********************************************************* LOGIC
 void logic(lexeme *list) {
 
+	//printf("LOGIC: %s\n", list[tokenIndex].name);
 	// Check for NOT symbol
 	if(list[tokenIndex].type == notsym) {
 
@@ -786,6 +797,7 @@ void logic(lexeme *list) {
 		condition(list);
 		// Emit NOT
 		emit(2, 0, 14);
+		//tokenIndex++;
 	}
 
 	else {
@@ -818,7 +830,9 @@ void logic(lexeme *list) {
 				count--;
 			}
 		}
+		//tokenIndex++;
 	}
+	//tokenIndex++;
 }
 
 
