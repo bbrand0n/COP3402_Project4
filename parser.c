@@ -21,7 +21,6 @@ Author Names: Brandon Gibbons, Aiden Ahern, Steven Horn
 instruction *code;
 int cIndex;
 symbol *table;
-int cIndex;
 int tIndex;
 int tokenIndex;
 int level;
@@ -374,8 +373,8 @@ void statement(lexeme *list) {
 		// Call LOGIC instead of condition (HW4)
 		logic(list);
 
-		tokenIndex++;
-		tokenIndex++;
+		//tokenIndex++;
+		//tokenIndex++;
 		// Check for then symbol
 		//printf(" If : %d\n",list[tokenIndex].type);
 		if(list[tokenIndex].type != thensym) printparseerror(8);
@@ -425,7 +424,7 @@ void statement(lexeme *list) {
 		// Instead of condition we call logic (HW4)
 		logic(list);
 
-		tokenIndex++;
+		
 
 		//printf(" While : %d\n", list[tokenIndex].type);
 		// Check for do while symbol
@@ -609,8 +608,10 @@ void condition(lexeme *list){
 
 		
 		// Must end with right parentheses
-		//printf("Condiiton BITCH: %d\n", list[tokenIndex].type);
+		//("Condiiton  %d\n", list[tokenIndex].type);
 		if(list[tokenIndex].type != rparensym) printparseerror(12);
+
+		tokenIndex++;
 	}
 	
 	// Symbol is not a (
@@ -914,7 +915,6 @@ int findsymbol(char name[], int kind)
 	return max_idx;
 }
 
-// Print parser error
 void printparseerror(int err_code)
 {
 	switch (err_code)
@@ -983,10 +983,9 @@ void printparseerror(int err_code)
 			printf("Implementation Error: unrecognized error code\n");
 			break;
 	}
-	
+	exit(0);
 	free(code);
 	free(table);
-	exit(0);
 }
 
 void printsymboltable()
