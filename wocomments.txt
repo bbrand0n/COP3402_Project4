@@ -1,0 +1,3 @@
+==!=<<=>>=*/+-(),.;:=
+while.const;procedure,var+call(if)then*else-do/begin==end>read<write
+sdf*const3+4* 18(procedureX)

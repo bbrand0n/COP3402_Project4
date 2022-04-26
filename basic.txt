@@ -1,0 +1,9 @@
+do 
+	call X;
+while y >= 37
+
+/* ********** comments % $ should be ignored 
+*/
+begin write 3; end.
+
+7 / var 9 := read ( != )

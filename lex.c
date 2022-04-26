@@ -36,22 +36,29 @@ int alphaToken(char * input, int inputIndex)
 	char curChar = input[inputIndex];
 	char nextChar = input[inputIndex + 1];
 	int curIndex = inputIndex;
+	int identLength = 0;
 	
 	// Store curChar in buffer
 	char buffer[13] = "\0";
 	strncat(buffer, &curChar, 1);
 	
 	// Loop through buffer
-	while (strlen(buffer) < 12)
+	while (isalpha(curChar))
 	{
 		// If digit or letter
 		if (isdigit(nextChar) || isalpha(nextChar))
 		{
 			// Get next char and add to buffer
+			identLength++;
 			curChar = nextChar;
 			curIndex++;
 			strncat(buffer, &curChar, 1);
 			nextChar = input[curIndex + 1];
+
+			// Identifier length error
+			if(identLength > MAX_IDENT_LEN) printlexerror(3);
+
+			// Continue to next character
 			continue;
 		}
 		
@@ -60,9 +67,6 @@ int alphaToken(char * input, int inputIndex)
 	}
 	
 	
-	/// Identifier Length Error
-	if (strlen(buffer) > 11)
-		return -1;
 	
 
 	/// If buffer is a reserved word, it will be handled within reservedCheck
@@ -125,36 +129,41 @@ int numberToken(char * input, int inputIndex)
 	char curChar = input[inputIndex];
 	char nextChar = input[inputIndex + 1];
 	int curIndex = inputIndex;
+	int numLength = 0;
 	
 	// Buffer
 	char buffer[7] = "\0";
 	strncat(buffer, &curChar, 1);
 	
 	// Loop over buffer
-	while (strlen(buffer) < 6)
+	while (isdigit(curChar))
 	{
-		// Invalid identifier
-		if (isalpha(nextChar))
-			return -2;
 		
 		// Is digit
-		else if (isdigit(nextChar))
+		if(isdigit(nextChar))
 		{
 			// Add to buffer
+			numLength++;
 			curChar = nextChar;
 			curIndex++;
 			strncat(buffer, &curChar, 1);
 			nextChar = input[curIndex + 1];
+
+			// Check for num length error
+			if(numLength > MAX_NUMBER_LEN) printlexerror(2);
+
+			// Continue to next num
 			continue;
 		}
 		
 		// Other char
 		break;
 	}
+
+	// Invalid identifier
+	if (isalpha(nextChar))
+		printlexerror(1);
 	
-	// Number Length Error
-	if (strlen(buffer) > 5)
-		return -1;
 	
 
 	// Copy over
@@ -239,7 +248,7 @@ int symbolToken(char * input, int inputIndex)
 				return inputIndex + 2;
 			}
 			// Not valid
-			return -1;
+			printlexerror(4);
 
 		case '=':
 			if (nextChar == '=')
@@ -250,7 +259,7 @@ int symbolToken(char * input, int inputIndex)
 				return inputIndex + 2;
 			}
 			// Not valid
-			return -1;
+			printlexerror(4);
 
 		case '!': 
 			// NEQ
@@ -326,9 +335,11 @@ int symbolToken(char * input, int inputIndex)
 				list[lex_index++].type = andsym;
 				return inputIndex + 2;
 			}
-			strcpy(list[lex_index].name, curString);
-			list[lex_index++].type = andsym;
-			return ++inputIndex;
+			// strcpy(list[lex_index].name, curString);
+			// list[lex_index++].type = andsym;
+			// return ++inputIndex;
+			// Not valid
+			printlexerror(4);
 
     
 		case '|':
@@ -340,13 +351,13 @@ int symbolToken(char * input, int inputIndex)
 				list[lex_index++].type = orsym;
 				return inputIndex + 2;
 			}
-			strcpy(list[lex_index].name, curString);
-			list[lex_index++].type = andsym;
-			return ++inputIndex;
+			// strcpy(list[lex_index].name, curString);
+			// list[lex_index++].type = andsym;
+			// return ++inputIndex;
 
 		// Invalid symbol
 		default:
-			return -1;
+			printlexerror(4);
 	}
 }
 
@@ -372,77 +383,40 @@ lexeme *lexanalyzer(char *input, int printFlag)
 		else if (isdigit(curChar))
 		{
 			inputIndex = numberToken(input, inputIndex);
-			
-			// number length error
-			if (inputIndex == -1)
-			{
-				if (printFlag) 
-					printlexerror(2);
-				return NULL;
-				
-			}
-			
-			// invalid identifier error
-			else if (inputIndex == -2)
-			{
-				if (printFlag)
-					printlexerror(1);	
-				return NULL;
-			}
-			
-			/// No errors
-			else
-			{
-				curChar = input[inputIndex];
-				continue;
-			}
+						
+			curChar = input[inputIndex];
+			continue;
+
 		}
 		
 		// Letter
 		else if (isalpha(curChar))
 		{
+
+			// Analyze identifier
 			inputIndex = alphaToken(input, inputIndex);
 			
-			/// Identifier Length Error
-			if (inputIndex == -1)
-			{
-				// Print error and return
-				if (printFlag) 
-					printlexerror(3);
-				return NULL;
-			}
-			
 			/// No error
-			else
-			{
-				curChar = input[inputIndex];
-				continue;
-			}
+			curChar = input[inputIndex];
+			continue;
+
 		}
 		
 		// Other
 		else
 		{
+
+			// Analyze symbol
 			inputIndex = symbolToken(input, inputIndex);
 			
-			/// Invalid Symbol Error
-			if (inputIndex == -1)
-			{
-				if (printFlag)
-					printlexerror(4);
-				return NULL;
-			}
-			
 			/// No error
-			else
-			{
-				curChar = input[inputIndex];
-				continue;
-			}
+			curChar = input[inputIndex];
+			continue;
+			
 		}
 	}
 	
-	if (1)
+	if (printFlag)
 		printtokens();
 	list[lex_index].type = -1;
 	return list;
@@ -592,6 +566,7 @@ void printlexerror(int type)
 	else
 		printf("Implementation Error: Unrecognized Error Type\n");
 
+	exit(0);
 	free(list);
 	return;
 }

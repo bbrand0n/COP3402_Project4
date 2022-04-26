@@ -1,0 +1,31 @@
+Symbol Table:
+Kind | Name        | Value | Level | Address | Mark
+---------------------------------------------------
+   3 |        main |     0 |     0 |     1 |     1
+Line	OP Code	OP Name	L	M
+0	7	JMP	0	1
+1	6	INC	0	3
+2	1	LIT	0	7
+3	1	LIT	0	9
+4	2	GTR	0	10
+5	8	JPC	0	9
+6	1	LIT	0	2
+7	9	WRT	0	1
+8	7	JMP	0	11
+9	1	LIT	0	3
+10	9	WRT	0	1
+11	1	LIT	0	8
+12	1	LIT	0	3
+13	2	LSS	0	8
+14	8	JPC	0	17
+15	1	LIT	0	1
+16	9	WRT	0	1
+17	1	LIT	0	3
+18	1	LIT	0	14
+19	2	GEQ	0	11
+20	8	JPC	0	24
+21	1	LIT	0	18
+22	9	WRT	0	1
+23	7	JMP	0	17
+24	9	HAL	0	3
+Top of Stack Value: 3

@@ -1,0 +1,29 @@
+Lexeme Table:
+lexeme		token type
+         do	18
+       call	8
+          X	28
+          ;	29
+      while	16
+          y	28
+         >=	11
+         37	30
+      begin	20
+      write	26
+          3	30
+          ;	29
+        end	22
+          .	27
+          7	30
+          /	15
+        var	4
+          9	30
+         :=	31
+       read	24
+          (	21
+         !=	3
+          )	23
+
+Token List:
+18 8 28 X 29 16 28 y 11 30 37 20 26 30 3 29 22 27 30 7 15 4 30 9 31 24 21 3 23 
+Parser Error: Program must be closed by a period

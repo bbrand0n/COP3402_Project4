@@ -1,0 +1,1 @@
+Parser Error: Constant declarations should follow the pattern 'ident := number {, ident := number}'

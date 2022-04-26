@@ -1,0 +1,10 @@
+var x, y;
+begin
+	read x;
+	y := x * 37 + (10/2);
+	x := y - 3;
+	if y / 2 != x / 2 then
+		write y
+	else
+		write x;
+end.

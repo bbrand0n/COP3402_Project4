@@ -1,0 +1,60 @@
+				PC	BP	SP	RP
+Initial values:			0	0	-1	10
+ 0	JMP	0	1	1	0	-1	10		
+	data stack : 
+ 1	INC	0	5	2	0	4	10		
+	data stack : 0 0 0 0 0 
+Please Enter an Integer: 
+ 2	RED	0	2	3	0	4	9		4 
+	data stack : 0 0 0 0 0 
+ 3	STO	0	3	4	0	4	10		
+	data stack : 0 0 0 4 0 
+ 4	LOD	0	3	5	0	4	9		4 
+	data stack : 0 0 0 4 0 
+ 5	LIT	0	37	6	0	4	8		4 37 
+	data stack : 0 0 0 4 0 
+ 6	MUL	0	4	7	0	4	9		148 
+	data stack : 0 0 0 4 0 
+ 7	LIT	0	10	8	0	4	8		148 10 
+	data stack : 0 0 0 4 0 
+ 8	LIT	0	2	9	0	4	7		148 10 2 
+	data stack : 0 0 0 4 0 
+ 9	DIV	0	5	10	0	4	8		148 5 
+	data stack : 0 0 0 4 0 
+10	ADD	0	2	11	0	4	9		153 
+	data stack : 0 0 0 4 0 
+11	STO	0	4	12	0	4	10		
+	data stack : 0 0 0 4 153 
+12	LOD	0	4	13	0	4	9		153 
+	data stack : 0 0 0 4 153 
+13	LIT	0	3	14	0	4	8		153 3 
+	data stack : 0 0 0 4 153 
+14	SUB	0	3	15	0	4	9		150 
+	data stack : 0 0 0 4 153 
+15	STO	0	3	16	0	4	10		
+	data stack : 0 0 0 150 153 
+16	LOD	0	4	17	0	4	9		153 
+	data stack : 0 0 0 150 153 
+17	LIT	0	2	18	0	4	8		153 2 
+	data stack : 0 0 0 150 153 
+18	DIV	0	5	19	0	4	9		76 
+	data stack : 0 0 0 150 153 
+19	LOD	0	3	20	0	4	8		76 150 
+	data stack : 0 0 0 150 153 
+20	LIT	0	2	21	0	4	7		76 150 2 
+	data stack : 0 0 0 150 153 
+21	DIV	0	5	22	0	4	8		76 75 
+	data stack : 0 0 0 150 153 
+22	NEQ	0	7	23	0	4	9		1 
+	data stack : 0 0 0 150 153 
+23	JPC	0	27	24	0	4	10		
+	data stack : 0 0 0 150 153 
+24	LOD	0	4	25	0	4	9		153 
+	data stack : 0 0 0 150 153 
+Top of Stack Value: 153
+25	WRT	0	1	26	0	4	10		
+	data stack : 0 0 0 150 153 
+26	JMP	0	29	29	0	4	10		
+	data stack : 0 0 0 150 153 
+29	HAL	0	3	30	0	4	10		
+	data stack : 0 0 0 150 153 

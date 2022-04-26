@@ -1,0 +1,4 @@
+while const procedure var call if then else do begin end read write
+/* ****\/comm
+ent */
+sdf const3 4  18 procedureX

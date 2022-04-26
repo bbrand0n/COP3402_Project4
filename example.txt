@@ -1,0 +1,46 @@
+/* this program is very complicated */
+const halt := 0, ex := 1, fact := 2;
+var action, x, exp, result;
+procedure power;
+	begin
+		if exp < 1 then
+			result := 1
+		else
+			begin
+				exp := exp - 1;
+				call power;
+				result := result * x;
+			end
+	end;
+/* it has two procedures!*/
+procedure factorial;
+	var count;
+	begin
+		count := x;
+		result := 1;
+		while count > 1 do
+			begin
+				result := result * x;
+				x := x - 1;
+				count := count - 1;
+			end
+	end;
+begin
+	read action;
+	while action != halt do
+		begin
+			if action == ex then
+				begin
+					read x;
+					read exp;
+					call power;
+				end
+			else
+				begin
+					read x;
+					call factorial
+				end;
+			write result;
+			read action
+		end;	
+end.

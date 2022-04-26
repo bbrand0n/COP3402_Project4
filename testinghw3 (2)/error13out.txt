@@ -1,0 +1,1 @@
+Parser Error: Multiple symbols in variable and constant declarations must be separated by commas
